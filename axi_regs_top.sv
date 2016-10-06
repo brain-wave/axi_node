@@ -422,9 +422,9 @@ module axi_regs_top
   generate
 
   for(i=0;i<N_REGION_MAX;i++)
-  begin
+  begin : art0
         for(j=0;j<N_MASTER_PORT;j++)
-        begin
+        begin : art1
                 assign START_ADDR_o [i][j]    = cfg_reg[i*4 + j*4*N_REGION_MAX + 0];
                 assign END_ADDR_o   [i][j]    = cfg_reg[i*4 + j*4*N_REGION_MAX + 1];
                 assign valid_rule_o [i][j]    = cfg_reg[i*4 + j*4*N_REGION_MAX + 2][0][0];
@@ -432,7 +432,7 @@ module axi_regs_top
   end
 
   for(i = 0; i < N_SLAVE_PORT; i++)
-  begin
+  begin : art2
             assign temp_reg[i] = cfg_reg[N_MASTER_PORT*4*N_REGION_MAX + i];
             assign connectivity_map_o[i]  = temp_reg[i][N_MASTER_PORT-1:0];
   end
