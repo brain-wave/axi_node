@@ -89,18 +89,18 @@ module axi_address_decoder_AR
 
       // First calculate for each region where what slave ist matching
       for(j=0;j<N_REGION;j++)
-      begin
+      begin : aad_ar1
            for(i=0;i<N_INIT_PORT;i++)
-           begin
+           begin : aad_ar1_1
               assign match_region_int[j][i]  =  (enable_region_i[j][i] == 1'b1 ) ? (araddr_i >= START_ADDR_i[j][i]) && (araddr_i <= END_ADDR_i[j][i]) : 1'b0;
            end
       end
 
       // transpose the match_region_int bidimensional array
       for(j=0;j<N_INIT_PORT;j++)
-      begin
+      begin : aad_ar2
            for(i=0;i<N_REGION;i++)
-           begin
+           begin : aad_ar2_1
              assign match_region_rev[j][i] = match_region_int[i][j];
            end
       end
@@ -108,7 +108,7 @@ module axi_address_decoder_AR
 
       //Or reduction
       for(i=0;i<N_INIT_PORT;i++)
-      begin
+      begin : aad_ar3
         assign match_region[i]  =  | match_region_rev[i];
       end
 
